@@ -20,7 +20,7 @@ $(function () {
                     return url.replace('{width}x{height}', '350x198')
                 };
                 for (let i = num; i < num + 20; i++) {
-                    let channelName = res.data[i].thumbnail_url.match(/(?<=user_)\w+(?=\-)/)[0];
+                    let channelName = res.data[i].thumbnail_url.match(/[a-z]+(?=\-\{)/gi);
                     let viewers = res.data[i].viewer_count;
                     if (res.data[i]) {
                         $("article").append(`
