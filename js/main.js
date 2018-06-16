@@ -15,13 +15,12 @@ $(function () {
             },
             error: function (res) { alert('error!') },
             success: function (res) {
-                console.log(res)
                 $(".loading").slideUp('fast');
                 function poccess(url) {
                     return url.replace('{width}x{height}', '350x198')
                 };
-                for (let i = num; i < (num + 20); i++) {
-                    let channelName = res.data[i].thumbnail_url.match(/[a-z0-9]+(?=\-\{)/gi);
+                for (let i = num; i < num + 20; i++) {
+                    let channelName = res.data[i].thumbnail_url.match(/[a-z]+(?=\-\{)/gi);
                     let viewers = res.data[i].viewer_count;
                     if (res.data[i]) {
                         $("article").append(`
@@ -31,43 +30,40 @@ $(function () {
                         <p class="viewers">觀看人數: ${viewers}</p>
                     </section>
                     `)
-                    $(".video").unbind();
                     }
-                    $(".video").click((event) => {
-                        let channel = $(event.currentTarget).attr('data-channel');
-                        $(".show-box").css("display", "flex")
-                        $("iframe").attr("src", `https://player.twitch.tv/?channel=${channel}`)
-                    });
                 };
+                $(".load-more").click(() => {
+                    startIndex += 20;
+                    sendRequest(language, startIndex)
+                    if (startIndex === 100) {
+                        $(".load-more").css("display", "none");
+                    }
+                })
+                $(".video").click((event) => {
+                    let channel = $(event.currentTarget).attr('data-channel');
+                    $(".show-box").css("display", "flex")
+                    $("iframe").attr("src", `https://player.twitch.tv/?channel=${channel}`)
+                });
+                $(".close").click(() => {
+                    $(".show-box").css("display", "none")
+                    $("iframe").attr("src", "")
+                });
+                $(".btn1").click(() => {
+                    $("iframe").attr({
+                        width: 1280,
+                        height: 768
+                    })
+                });
+                $(".btn2").click(() => {
+                    $("iframe").attr({
+                        width: 1600,
+                        height: 900
+                    })
+                });
             },
         });
     }
-
     sendRequest(language, startIndex);
-    $(".close").click(() => {
-        $(".show-box").css("display", "none")
-        $("iframe").attr("src", "")
-    });
-    $(".btn1").click(() => {
-        $("iframe").attr({
-            width: 1280,
-            height: 768
-        })
-    });
-    $(".btn2").click(() => {
-        $("iframe").attr({
-            width: 1600,
-            height: 900
-        })
-    });
-    $(".load-more").click(() => {
-        startIndex = startIndex + 20;
-        sendRequest(language, startIndex)
-        if (startIndex === 80) {
-            $(".load-more").css("display", "none");
-        }
-    })
-    let langs = ['zh-tw', 'en', 'ja', 'ko', 'ru', 'de', 'fr']
     $(".all").click(() => {
         $(".loading").show('fast');
         $("article").empty();
@@ -78,6 +74,7 @@ $(function () {
         $('a').removeClass('active')
         $(`.all`).addClass('active')
     })
+    let langs = ['zh-tw', 'en', 'ja', 'ko', 'ru', 'de', 'fr']
     langs.forEach(x => {
         $(`.${x}`).click(() => {
             $(".loading").slideDown('fast');
@@ -85,7 +82,6 @@ $(function () {
             language = x;
             startIndex = 0;
             sendRequest(language, startIndex);
-            $(".load-more").css("display", "block");
             $('a').removeClass('active')
             $(`.${x}`).addClass('active')
         })
