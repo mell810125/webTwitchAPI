@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Twitch API</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <header>
+        <h1>Twitch Viewer</h1>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link all active" href="#">全部</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link zh-tw" href="#">台灣</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link en" href="#">北美</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">其它</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item ja" href="#">日本</a>
+                    <a class="dropdown-item ko" href="#">韓國</a>
+                    <a class="dropdown-item ru" href="#">俄羅斯</a>
+                    <a class="dropdown-item de" href="#">德國</a>
+                    <a class="dropdown-item fr" href="#">法國</a>
+                </div>
+            </li>
+        </ul>
+    </header>
+    <div class="loading">載入中...</div>
+    <article class="d-flex flex-wrap"></article>
+    <div class="load-more">點擊載入更多...</div>
+    <div class="show-box">
+        <div class="buttons">
+            <button class="btn btn1">1280x720</button>
+            <button class="btn btn2">1600x900</button>
+        </div>
+        <span class="close">X</span>
+        <iframe src="" frameborder="0" allowfullscreen="true" scrolling="no" height="900" width="1600"></iframe>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
